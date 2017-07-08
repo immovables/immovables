@@ -9,7 +9,9 @@ public interface MemberService {
 	List<Member> selectMemberList() throws Exception;
 	
 	Member	selectMember(Member member) throws Exception;
-	
+
+	Member	selectMemberById(Member member) throws Exception;
+
 	Integer insertMember(Member member)throws Exception;
 	
 	Integer updateMember(Member member) throws Exception;

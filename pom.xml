@@ -101,6 +101,15 @@
             <version>${org.springframework-version}</version>
         </dependency>
          
+         
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>sitemesh</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+
+
+ 
         <!-- AOP Alliance -->
         <dependency>
             <groupId>aopalliance</groupId>

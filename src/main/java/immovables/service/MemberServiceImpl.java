@@ -2,8 +2,6 @@ package immovables.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +40,11 @@ public class MemberServiceImpl implements MemberService {
 		@Override
 		public Member selectMember(Member member) throws Exception {
 			return dao.selectMember(member);
+		}
+
+		@Override
+		public Member selectMemberById(Member member) throws Exception {
+			return dao.selectMemberById(member);
 		}
 
 }

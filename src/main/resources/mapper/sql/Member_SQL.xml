@@ -32,6 +32,23 @@
 			   AND	PW = #{pw}
 		]]>
 	</select>
+
+	<select id="selectMemberById" resultMap="memberResult">
+		<![CDATA[
+			SELECT	ID			
+				 ,	NAME		
+				 ,	IS_ADMIN
+			  FROM	MEMBER
+			 WHERE	ID = #{id}
+		]]>
+	</select>
+
+	
+	<insert id="insert">
+		<![CDATA[
+			INSERT INTO MEMBER (ID, PW, NAME, IS_ADMIN)VALUES(#{id}, #{pw}, #{name}, #{isAdmin})
+		]]>
+	</insert>
 	
 </mapper>
 

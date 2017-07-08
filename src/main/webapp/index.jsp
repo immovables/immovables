@@ -1,9 +1,16 @@
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
+<% 
+String sessionId = (String)request.getSession().getAttribute("id");
+
+if (sessionId != null) { %>
+	<jsp:forward page="/index.do"/>
+<% }%>
+
+
 <html>
 <head>
 <script type="text/javascript">
