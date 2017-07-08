@@ -33,6 +33,7 @@ public class AdminController {
 		loginMember.setPw(request.getParameter("pw"));
 		
 		Member resultMember = memberService.selectMember(loginMember);
+		Member resultMember1 = memberService.selectMember(loginMember);
 	
     	ModelAndView mv = new ModelAndView("/index");
 		if(resultMember.getId().toString().equals(loginMember.getId().toString())){
