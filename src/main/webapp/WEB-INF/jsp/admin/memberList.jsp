@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>MemberList</title>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	<title>MemberList</title>
+
+<script type="text/javascript">
+	function mewMember() {
+		
+		
+	}
+</script>
 </head>
 <body>
 <h2>게시판 목록</h2>
@@ -33,5 +40,6 @@
 		
 	</tbody>
 </table>
+<input type="button" id="new_member" value="회원등록" onclick="location.href='/newMember.do'";>
 </body>
 </html>

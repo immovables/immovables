@@ -22,7 +22,7 @@
 		<tr>
 			<th scope="col">ID</th>
 			<td scope="col">
-				<input type="text" name="id"/>
+				<input type="text" name="id" placeholder = "ID를 입력해 주세요."/>
 			</td>
 			<td rowspan="2">
 				<input type="submit" value="로그인"/>
@@ -31,7 +31,7 @@
 		<tr>
 			<th scope="col">Password</th>
 			<td scope="col">
-				<input type="password" name="pw"/>
+				<input type="password" name="pw" placeholder = "비밀번호를 입력해 주세요."/>
 			</td>
 		</tr>
 		

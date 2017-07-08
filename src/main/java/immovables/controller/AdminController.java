@@ -29,14 +29,14 @@ public class AdminController {
     		  @ModelAttribute("member") Member member) throws Exception{
 
 		Member loginMember = new Member();
+		Member resultMember = new Member();
 		loginMember.setId(request.getParameter("id"));
 		loginMember.setPw(request.getParameter("pw"));
 		
-		Member resultMember = memberService.selectMember(loginMember);
-		Member resultMember1 = memberService.selectMember(loginMember);
+		resultMember = memberService.selectMember(loginMember);
 	
-    	ModelAndView mv = new ModelAndView("/index");
-		if(resultMember.getId().toString().equals(loginMember.getId().toString())){
+    	ModelAndView mv = new ModelAndView("../../index");
+		if(resultMember != null && loginMember.getId().toString().equals(resultMember.getId().toString())){
 	    	mv = new ModelAndView("/admin/memberList");
 	    	mv.addObject("member", resultMember);
 		}
@@ -45,6 +45,23 @@ public class AdminController {
 
     }
 
+	@RequestMapping(value="/newMember.do",  method = RequestMethod.GET)
+    public ModelAndView newMember() throws Exception{
+
+    	ModelAndView mv = new ModelAndView("/admin/newMember");
+		return mv;
+
+    }
+
+	@RequestMapping(value="/newMember.do",  method = RequestMethod.POST)
+    public ModelAndView newMember1() throws Exception{
+
+    	ModelAndView mv = new ModelAndView("/admin/newMember");
+		return mv;
+
+    }
+
+	
     public ModelAndView memberList() throws Exception{
 
 		List<Member> members = memberService.selectMemberList();
