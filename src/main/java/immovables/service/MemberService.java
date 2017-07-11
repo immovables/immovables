@@ -10,7 +10,7 @@ public interface MemberService {
 	
 	Member	selectMember(Member member) throws Exception;
 
-	Member	selectMemberById(Member member) throws Exception;
+	Member	selectMemberById(String id) throws Exception;
 
 	Integer insertMember(Member member)throws Exception;
 	

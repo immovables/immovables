@@ -43,8 +43,8 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		@Override
-		public Member selectMemberById(Member member) throws Exception {
-			return dao.selectMemberById(member);
+		public Member selectMemberById(String id) throws Exception {
+			return dao.selectMemberById(id);
 		}
 
 }

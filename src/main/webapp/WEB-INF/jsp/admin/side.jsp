@@ -6,6 +6,10 @@
 
 </head>
 <body>
+        <br>
+        <b><font size="6" color="gray">회원 정보</font></b>
+        <br><br><br>
+
 side<br/>
 side<br/>
 side<br/>

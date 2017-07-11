@@ -5,7 +5,25 @@
 <html>
 <head>
     <title>직원등록화면</title>
-    
+    <style type="text/css">
+    	#content {
+    		width:100%; margin:0 auto;
+    		overflow:hidden;
+    	}
+
+    	#content > #main_aside {
+    		width : 30%;
+    		float : left;
+    	}
+    	
+    	#content > #main_section {
+    		width : 67%;  margin:0 auto;
+    		float : left;
+    	}
+
+    	
+    	
+    </style>
     <script type="text/javascript">
     
         // 필수 입력정보인 아이디, 비밀번호가 입력되었는지 확인하는 함수
@@ -37,8 +55,10 @@
     
 </head>
 <body>
-<c:import url="./head.jsp" charEncoding="UTF-8" />
-
+<header><c:import url="./head.jsp" charEncoding="UTF-8" /></header>
+<div id="content">
+	<aside id="main_aside">	<c:import url="./side.jsp" charEncoding="UTF-8" /></aside>
+	<section id="main_section">
     <!-- div 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다.  -->
     <div id="wrap">
         <br><br>
@@ -132,8 +152,8 @@
                 <tr>
                     <td id="title">관리자여부</td>
                     <td>
-                        <input type="radio" name="isAdmin" value="yes"/> 관리자
-                        <input type="radio" name="isAdmin" value="no" checked="checked"/> 일반
+                        <input type="radio" name="isAdmin" value="true"/> 관리자
+                        <input type="radio" name="isAdmin" value="false" checked="checked"/> 일반
                     </td>
                 </tr>
             </table>
@@ -141,5 +161,8 @@
             <input type="submit" value="가입"/>  <input type="button" value="취소">
         </form>
     </div>
+	</section>
+</div>
+<footer></footer>
 </body>
 </html>

@@ -33,7 +33,7 @@
 		]]>
 	</select>
 
-	<select id="selectMemberById" resultMap="memberResult">
+	<select id="selectMemberById" parameterType="String" resultMap="memberResult">
 		<![CDATA[
 			SELECT	ID			
 				 ,	NAME		

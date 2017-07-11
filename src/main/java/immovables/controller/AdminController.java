@@ -25,101 +25,51 @@ public class AdminController {
 	private MemberService memberService;
 
 	
-	@RequestMapping(value="/index.do",  method = RequestMethod.GET)
-    public ModelAndView loginView(HttpServletRequest request, HttpServletResponse response,
-    		  @ModelAttribute("member") Member member) throws Exception{
-
-		HttpSession session  =  request.getSession();
-		String sessionId = (String)session.getAttribute("id");
-
-		ModelAndView mv = new ModelAndView("../../index");
-		if(sessionId != null && sessionId !="geust") {
-	    	mv = new ModelAndView("/admin/memberList");
-	    	
-	    	Member m = new Member();
-	    	m.setId(sessionId);
-			Member loginMember = new Member();
-			loginMember = memberService.selectMemberById(m);
-			session.setAttribute("id", sessionId);
-			
-			if(loginMember != null) {
-		    	mv.addObject("member", loginMember);
-			}
-		
-		}else {
-			session.setAttribute("id", "guest");
-		}
-
-		return mv;
-
-	}
-
-	
-	@RequestMapping(value="/login.do",  method = RequestMethod.POST)
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response,
-    		  @ModelAttribute("member") Member member) throws Exception{
-
-		HttpSession session  =  request.getSession();
-		String sessionId = (String)session.getAttribute("id");
+	@RequestMapping(value="/registerMember.do",  method = RequestMethod.GET)
+    public ModelAndView newMember(HttpServletRequest request) throws Exception{
 
 		Member loginMember = new Member();
-		Member resultMember = new Member();
-
+		loginMember = hasAdminAuthority(request);
     	ModelAndView mv = new ModelAndView("../../index");
-		if(sessionId == null||sessionId=="guest") {
-			loginMember.setId(request.getParameter("id"));
-			loginMember.setPw(request.getParameter("pw"));
-			resultMember = memberService.selectMember(loginMember);
-
-			
-	    	if(resultMember != null && loginMember.getId().toString().equals(resultMember.getId().toString())){
-		    	mv = new ModelAndView("/admin/memberList");
-		    	mv.addObject("member", resultMember);
-
-				//session저장
-				session.setAttribute("id", resultMember.id.toString());
-
-	    	}
-	    	
-		}else{
-	    	mv = new ModelAndView("/admin/memberList");
-	    	resultMember.setId(sessionId);
-	    	mv.addObject("member", resultMember);
-
-		}
 		
-	
-	
-		return mv;
+    	// 로그인 정보로 관리권한 확인
+    	if(loginMember.getIsAdmin()) {
+	    	mv = new ModelAndView("/admin/registerMember");
+	    	mv.addObject("member", loginMember);
+		}
 
-    }
-
-	@RequestMapping(value="/registerMember.do",  method = RequestMethod.GET)
-    public ModelAndView newMember() throws Exception{
-
-    	ModelAndView mv = new ModelAndView("/admin/registerMember");
-		return mv;
-
+    	return mv;
     }
 
 	@RequestMapping(value="/registerMember.do",  method = RequestMethod.POST)
     public ModelAndView registerMember(HttpServletRequest request, HttpServletResponse response,
   		  @ModelAttribute("member") Member member) throws Exception{
 
-		Member registerMember = new Member();
-		registerMember.setId(request.getParameter("id"));
-		registerMember.setPw(request.getParameter("pw"));
-		registerMember.setName(request.getParameter("name"));
-		String adminCheckValue = request.getParameter("isAdmin");
-		if(adminCheckValue.equals("yes")) {
-			registerMember.setIsAdmin(true);
-		}
-		
-		memberService.insertMember(registerMember);
+		// 로그인 정보 확인
+		Member loginMember = new Member();
+		loginMember = hasAdminAuthority(request);
+		// TODO 로그인 정보 불일치 시 이동 url
+    	ModelAndView mv = new ModelAndView("");
 
-    	ModelAndView mv = new ModelAndView("/admin/registerMember");
-		return mv;
+    	// 로그인 정보로 관리권한 확인
+    	if(loginMember.getIsAdmin()) {
 
+    		// NEW 직원 정보
+    		Member registerMember = new Member();
+    		registerMember.setId(request.getParameter("id"));
+    		registerMember.setPw(request.getParameter("pw"));
+    		registerMember.setName(request.getParameter("name"));
+    		String adminCheckValue = request.getParameter("isAdmin");
+    		
+    		if(adminCheckValue.equals("true")) registerMember.setIsAdmin(true);
+    		
+    		// NEW 직원등록
+    		memberService.insertMember(registerMember);
+    		
+    		mv = new ModelAndView("/admin/registerMember");
+    	}
+
+    	return mv;
     }
 
 
@@ -127,34 +77,38 @@ public class AdminController {
     public ModelAndView updateMember(HttpServletRequest request, HttpServletResponse response,
   		  @ModelAttribute("member") Member member) throws Exception{
 
-		
-		HttpSession session  =  request.getSession();
-		String sessionId = (String)session.getAttribute("id");
-
-		Member resultMember = new Member();
 		Member loginMember = new Member();
-		loginMember.setId(sessionId);
-		loginMember.setPw("");
-		resultMember = memberService.selectMember(loginMember);
+		loginMember = hasAdminAuthority(request);
+    	ModelAndView mv = new ModelAndView("../../index");
 		
+    	// 로그인 정보로 관리권한 확인
+    	if(loginMember.getIsAdmin()) {
+	    	mv = new ModelAndView("/admin/registerMember");
+	    	mv.addObject("members", loginMember);
+		}
 		
-    	ModelAndView mv = new ModelAndView("/admin/registerMember");
-    	mv.addObject("members", resultMember);
 		return mv;
-
     }
 
 	
     public ModelAndView memberList() throws Exception{
-
 		List<Member> members = memberService.selectMemberList();
-		
-		
     	ModelAndView mv = new ModelAndView("/admin/memberList");
     	mv.addObject("members", members);
 		return mv;
-
     }
 
+	private Member	hasAdminAuthority(HttpServletRequest request) throws Exception {
+    	
+		HttpSession session  =  request.getSession();
+		String sessionId = (String)session.getAttribute("id");
 
+		Member result = new Member();
+		result.setIsAdmin(false);
+		if(sessionId!=null && sessionId !="guest") {
+			result = memberService.selectMemberById(sessionId);
+		}
+    	
+    	return result;
+    }
 }

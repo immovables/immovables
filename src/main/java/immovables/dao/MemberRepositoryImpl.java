@@ -42,8 +42,8 @@ public class MemberRepositoryImpl  extends AbstractDAO implements MemberReposito
 	}
 
 	@Override
-	public Member selectMemberById(Member member) throws Exception {
-		return session.selectOne("Member.selectMemberById", member);
+	public Member selectMemberById(String id) throws Exception {
+		return session.selectOne("Member.selectMemberById", id);
 	}
 
 
