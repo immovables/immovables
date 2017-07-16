@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
-    <title>Á÷¿øµî·ÏÈ­¸é</title>
+    <title>ì§ì›ë“±ë¡í™”ë©´</title>
     <style type="text/css">
     	#content {
     		width:100%; margin:0 auto;
@@ -26,27 +26,27 @@
     </style>
     <script type="text/javascript">
     
-        // ÇÊ¼ö ÀÔ·ÂÁ¤º¸ÀÎ ¾ÆÀÌµð, ºñ¹Ð¹øÈ£°¡ ÀÔ·ÂµÇ¾ú´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö
+        // í•„ìˆ˜ ìž…ë ¥ì •ë³´ì¸ ì•„ì´ë””, ë¹„ë°€ë²ˆí˜¸ê°€ ìž…ë ¥ë˜ì—ˆëŠ”ì§€ í™•ì¸í•˜ëŠ” í•¨ìˆ˜
         function checkValue()
         {
             if(!document.memberInfo.id.value){
-                alert("¾ÆÀÌµð¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+                alert("ì•„ì´ë””ë¥¼ ìž…ë ¥í•˜ì„¸ìš”.");
                 return false;
             }
             
             if(!document.memberInfo.password.value){
-                alert("ºñ¹Ð¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+                alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ìž…ë ¥í•˜ì„¸ìš”.");
                 return false;
             }
             
-            // ºñ¹Ð¹øÈ£¿Í ºñ¹Ð¹øÈ£ È®ÀÎ¿¡ ÀÔ·ÂµÈ °ªÀÌ µ¿ÀÏÇÑÁö È®ÀÎ
+            // ë¹„ë°€ë²ˆí˜¸ì™€ ë¹„ë°€ë²ˆí˜¸ í™•ì¸ì— ìž…ë ¥ëœ ê°’ì´ ë™ì¼í•œì§€ í™•ì¸
             if(document.memberInfo.pw.value != document.memberInfo.pwCheck.value ){
-                alert("ºñ¹Ð¹øÈ£¸¦ µ¿ÀÏÇÏ°Ô ÀÔ·ÂÇÏ¼¼¿ä.");
+                alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ë™ì¼í•˜ê²Œ ìž…ë ¥í•˜ì„¸ìš”.");
                 return false;
             }
             
             if(!document.memberInfo.name.value){
-                alert("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.");
+                alert("ì´ë¦„ì„ ìž…ë ¥í•˜ì„¸ìš”.");
                 return false;
             }
 
@@ -59,60 +59,60 @@
 <div id="content">
 	<aside id="main_aside">	<c:import url="./side.jsp" charEncoding="UTF-8" /></aside>
 	<section id="main_section">
-    <!-- div ¿ÞÂÊ, ¿À¸¥ÂÊ ¹Ù±ù¿©¹éÀ» auto·Î ÁÖ¸é Áß¾ÓÁ¤·ÄµÈ´Ù.  -->
+    <!-- div ì™¼ìª½, ì˜¤ë¥¸ìª½ ë°”ê¹¥ì—¬ë°±ì„ autoë¡œ ì£¼ë©´ ì¤‘ì•™ì •ë ¬ëœë‹¤.  -->
     <div id="wrap">
         <br><br>
-        <b><font size="6" color="gray">Á÷¿øµî·Ï</font></b>
+        <b><font size="6" color="gray">ì§ì›ë“±ë¡</font></b>
         <br><br><br>
         
         
-        <!-- ÀÔ·ÂÇÑ °ªÀ» Àü¼ÛÇÏ±â À§ÇØ form ÅÂ±×¸¦ »ç¿ëÇÑ´Ù -->
-        <!-- °ª(ÆÄ¶ó¹ÌÅÍ) Àü¼ÛÀº POST ¹æ½Ä, Àü¼ÛÇÒ ÆäÀÌÁö´Â JoinPro.jsp -->
+        <!-- ìž…ë ¥í•œ ê°’ì„ ì „ì†¡í•˜ê¸° ìœ„í•´ form íƒœê·¸ë¥¼ ì‚¬ìš©í•œë‹¤ -->
+        <!-- ê°’(íŒŒë¼ë¯¸í„°) ì „ì†¡ì€ POST ë°©ì‹, ì „ì†¡í•  íŽ˜ì´ì§€ëŠ” JoinPro.jsp -->
         <form method="post" action="/registerMember.do" name="memberInfo" onsubmit="return checkValue()">
             <table>
                 <tr>
-                    <td id="title">* ¾ÆÀÌµð</td>
+                    <td id="title">* ì•„ì´ë””</td>
                     <td>
                         <input type="text" name="id" maxlength="50">
-                        <input type="button" value="Áßº¹È®ÀÎ" >    
+                        <input type="button" value="ì¤‘ë³µí™•ì¸" >    
                     </td>
                 </tr>
                         
                 <tr>
-                    <td id="title">* ºñ¹Ð¹øÈ£</td>
+                    <td id="title">* ë¹„ë°€ë²ˆí˜¸</td>
                     <td>
                         <input type="password" name="pw" maxlength="50">
                     </td>
                 </tr>
                 
                 <tr>
-                    <td id="title">* ºñ¹Ð¹øÈ£ È®ÀÎ</td>
+                    <td id="title">* ë¹„ë°€ë²ˆí˜¸ í™•ì¸</td>
                     <td>
                         <input type="password" name="pwCheck" maxlength="50">
                     </td>
                 </tr>
                     
                 <tr>
-                    <td id="title">* ÀÌ¸§</td>
+                    <td id="title">* ì´ë¦„</td>
                     <td>
                         <input type="text" name="name" maxlength="50">
                     </td>
                 </tr>
                     
                 <tr>
-                    <td id="title">¼ºº°</td>
+                    <td id="title">ì„±ë³„</td>
                     <td>
-                        <input type="radio" name="gender" value="³²" checked>³²
-                        <input type="radio" name="gender" value="¿©" checked>¿©
+                        <input type="radio" name="gender" value="ë‚¨" checked>ë‚¨
+                        <input type="radio" name="gender" value="ì—¬" checked>ì—¬
                     </td>
                 </tr>
                     
                 <tr>
-                    <td id="title">»ý³â¿ùÀÏ</td>
+                    <td id="title">ìƒë…„ì›”ì¼</td>
                     <td>
-                        <input type="text" name="birthyy" maxlength="4" placeholder="³â(4ÀÚ)" size="6" >
+                        <input type="text" name="birthyy" maxlength="4" placeholder="ë…„(4ìž)" size="6" >
                         <select name="birthmm">
-                            <option value="">¿ù</option>
+                            <option value="">ì›”</option>
                             <option value="01" >1</option>
                             <option value="02" >2</option>
                             <option value="03" >3</option>
@@ -126,12 +126,12 @@
                             <option value="11" >11</option>
                             <option value="12" >12</option>
                         </select>
-                        <input type="text" name="birthdd" maxlength="2" placeholder="ÀÏ" size="4" >
+                        <input type="text" name="birthdd" maxlength="2" placeholder="ì¼" size="4" >
                     </td>
                 </tr>
                     
                 <tr>
-                    <td id="title">ÀÌ¸ÞÀÏ</td>
+                    <td id="title">ì´ë©”ì¼</td>
                     <td>
                         <input type="text" name="mail1" maxlength="50">@
                         <select name="mail2">
@@ -144,21 +144,21 @@
                 </tr>
                     
                 <tr>
-                    <td id="title">ÈÞ´ëÀüÈ­</td>
+                    <td id="title">íœ´ëŒ€ì „í™”</td>
                     <td>
                         <input type="text" name="phone" />
                     </td>
                 </tr>
                 <tr>
-                    <td id="title">°ü¸®ÀÚ¿©ºÎ</td>
+                    <td id="title">ê´€ë¦¬ìžì—¬ë¶€</td>
                     <td>
-                        <input type="radio" name="isAdmin" value="true"/> °ü¸®ÀÚ
-                        <input type="radio" name="isAdmin" value="false" checked="checked"/> ÀÏ¹Ý
+                        <input type="radio" name="isAdmin" value="true"/> ê´€ë¦¬ìž
+                        <input type="radio" name="isAdmin" value="false" checked="checked"/> ì¼ë°˜
                     </td>
                 </tr>
             </table>
             <br>
-            <input type="submit" value="°¡ÀÔ"/>  <input type="button" value="Ãë¼Ò">
+            <input type="submit" value="ê°€ìž…"/>  <input type="button" value="ì·¨ì†Œ">
         </form>
     </div>
 	</section>

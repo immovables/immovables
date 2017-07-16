@@ -6,18 +6,17 @@
 	
 	</head>
 	<body>
-		<table width="100%" bgcolor="red">
-		<tr>
-			<td>head 영역</td>
-		</tr>
-		<tr>
-			<td>head 영역</td>
-		</tr>
-		<tr>
-			<td>head 영역</td>
-		</tr>
-		
+		<br/>
+		<br/>
+		<table style="width:60%; margin:auto; text-align:center; bgcolor:red">
+			<tr>
+				<c:forEach var="menu" items="${menuList}">
+					<th>${menu.name}</th>
+				</c:forEach>
+			</tr>
 		</table>
+		<br/>
+		<br/>
 	</body>
 </html>
 

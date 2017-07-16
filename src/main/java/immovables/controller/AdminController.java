@@ -15,14 +15,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import immovables.domain.Member;
+import immovables.domain.Menu;
 import immovables.service.MemberService;
+import immovables.service.MenuService;
 
 @Controller
 public class AdminController {
 	Logger log = Logger.getLogger(this.getClass());
 	
-	@Autowired
-	private MemberService memberService;
+	@Autowired	private MemberService memberService;
+	@Autowired	private MenuService menuService;
 
 	
 	@RequestMapping(value="/registerMember.do",  method = RequestMethod.GET)
@@ -34,8 +36,11 @@ public class AdminController {
 		
     	// 로그인 정보로 관리권한 확인
     	if(loginMember.getIsAdmin()) {
-	    	mv = new ModelAndView("/admin/registerMember");
+	    	mv = new ModelAndView("/admin/registerMember");	    	
 	    	mv.addObject("member", loginMember);
+
+	    	List<Menu> menuList = menuService.selecMenuList();
+	    	mv.addObject("menuList", menuList);
 		}
 
     	return mv;
@@ -97,8 +102,16 @@ public class AdminController {
     	mv.addObject("members", members);
 		return mv;
     }
+    
+    
+    public ModelAndView menuList() throws Exception{
+		List<Member> members = memberService.selectMemberList();
+    	ModelAndView mv = new ModelAndView("/admin/memberList");
+    	mv.addObject("members", members);
+		return mv;
+    }
 
-	private Member	hasAdminAuthority(HttpServletRequest request) throws Exception {
+	public Member hasAdminAuthority(HttpServletRequest request) throws Exception {
     	
 		HttpSession session  =  request.getSession();
 		String sessionId = (String)session.getAttribute("id");
