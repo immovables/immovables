@@ -16,6 +16,11 @@ public class Member {
 	
 	public	Boolean			isAdmin;
 
+	public	String			img;
+	
+	public	Boolean			isDelete;
+
+
 	public Integer getSeq() {
 		return seq;
 	}
@@ -63,6 +68,21 @@ public class Member {
 	public void setMembers(List<Member> members) {
 		this.members = members;
 	}
-		
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
 	
 }

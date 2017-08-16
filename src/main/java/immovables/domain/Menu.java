@@ -7,6 +7,10 @@ public class Menu {
 	public	Integer	seq;
 	
 	public	String	name;
+
+	public	String	url;
+
+	public	Integer	order;
 	
 	public	Integer	level;
 	
@@ -34,6 +38,24 @@ public class Menu {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+		
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
 
 	public Integer getLevel() {

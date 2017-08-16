@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TelephoneSurvey">
+	
+	<resultMap id="TelephoneSurveyResult" type="immovables.domain.TelephoneSurvey">
+		<result property="seq" column="SEQ" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberName" column="NAME" />
+		<result property="surveyDate" column="SURVEY_DATE"/>
+		<result property="range" column="RANGE"/>
+		<result property="state" column="STATE"/>
+		<result property="createrId" column="CREATER_ID"/>
+		<result property="createdDate" column="CREATED_DATE"/>
+		<result property="updaterId" column="UPDATER_ID"/>
+		<result property="updatedDate" column="UPDATED_DATE"/>
+		
+	</resultMap>
+
+	<select id="selectTelephoneSurveyList" resultMap="TelephoneSurveyResult">
+		<![CDATA[
+			SELECT T.SEQ
+				 , T.SURVEY_DATE
+				 , M.NAME
+				 , T.RANGE
+				 , T.STATE
+			  FROM TELEPHONE_SURVEY AS T 
+			  LEFT JOIN MEMBER AS M ON T.MEMBER_ID = M.ID
+			  WHERE T.SURVEY_DATE >= (#{startDate}) AND T.SURVEY_DATE <= (#{endDate})
+			 GROUP BY T.SURVEY_DATE, M.ID
+			 ORDER BY T.SURVEY_DATE, M.SORT
+		]]>
+	</select>
+
+	<select id="selectTelephoneSurveyListByUserId" resultMap="TelephoneSurveyResult">
+		<![CDATA[
+			SELECT T.SURVEY_DATE
+				 , M.NAME
+				 , T.RANGE
+				 , T.STATE
+			  FROM TELEPHONE_SURVEY AS T 
+			  LEFT JOIN MEMBER AS M ON T.MEMBER_ID = M.ID
+			 WHERE T.MEMBER_ID = #{userId}
+			   AND T.SURVEY_DATE >= (#{startDate}) AND T.SURVEY_DATE <= (#{endDate})
+			 GROUP BY T.SURVEY_DATE, M.ID
+			 ORDER BY T.SURVEY_DATE, M.SORT
+		]]>
+	</select>
+	
+	<insert id="insert">
+		<![CDATA[
+		]]>
+	</insert>
+	
+</mapper>
+

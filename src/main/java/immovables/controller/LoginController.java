@@ -1,19 +1,16 @@
 package immovables.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +26,7 @@ import immovables.service.MenuService;
 public class LoginController {
 	Logger log = Logger.getLogger(this.getClass());
 	
+	@Autowired	private GeneralController generalController;
 	@Autowired	private MemberService memberService;
 	@Autowired	private MenuService menuService;
 
@@ -100,7 +98,7 @@ public class LoginController {
 
 		}
 	
-		return mv;
+		return generalController.searchSchedule(request, null);
 
     }
 	
@@ -113,7 +111,7 @@ public class LoginController {
 	 * @return
 	 * @throws Exception
 	 */
-	private HashMap<String, Integer> getToday() throws Exception {
+	public HashMap<String, Integer> getToday() throws Exception {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		Calendar cal = Calendar.getInstance();
 		

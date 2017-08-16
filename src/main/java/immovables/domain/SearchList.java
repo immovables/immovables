@@ -7,6 +7,10 @@ public class SearchList {
 	public	String	month;
 	
 	public	String	userId;
+	
+	public	String	startDate;
+	
+	public	String	endDate;
 
 	
 	public String getYear() {
@@ -32,4 +36,21 @@ public class SearchList {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	
 }

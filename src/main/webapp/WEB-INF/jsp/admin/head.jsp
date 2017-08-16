@@ -3,20 +3,35 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 	<head>
+	    <style type="text/css">
+    	#content {
+    		width:100%; margin:0 auto;
+    		overflow:hidden;
+    	}
+
+    	#content > #news {
+    		width : 20%;
+    		float : left;
+    	}
+    	
+    	#content > #menu {
+    		width : 80%;  margin:0 auto;
+    		float : left;
+    	}
+    </style>
 	
 	</head>
 	<body>
-		<br/>
-		<br/>
-		<table style="width:60%; margin:auto; text-align:center; bgcolor:red">
-			<tr>
-				<c:forEach var="menu" items="${menuList}">
-					<th>${menu.name}</th>
-				</c:forEach>
-			</tr>
-		</table>
-		<br/>
-		<br/>
+	<form>
+			<div id="content"><br />
+				<div id="news">(주)오피스 코리아 업무 노트</div>
+				<div id="menu">
+							<c:forEach var="menu" items="${menuList}">
+								<a href='${menu.url}'>${menu.name}</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+							</c:forEach>
+				</div>
+			<br /></div>
+</form>
 	</body>
 </html>
 

@@ -1,5 +1,6 @@
 package immovables.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import immovables.domain.Member;
 import immovables.domain.Menu;
+import immovables.domain.TelephoneSurvey;
 import immovables.service.MemberService;
 import immovables.service.MenuService;
+import immovables.service.TelephoneSurveyService;
 
 @Controller
 public class AdminController {
@@ -25,6 +29,8 @@ public class AdminController {
 	
 	@Autowired	private MemberService memberService;
 	@Autowired	private MenuService menuService;
+	@Autowired	private LoginController loginController;
+	@Autowired	private TelephoneSurveyService telephoneSurveyService;
 
 	
 	@RequestMapping(value="/registerMember.do",  method = RequestMethod.GET)
@@ -124,4 +130,78 @@ public class AdminController {
     	
     	return result;
     }
+	
+	/***
+	 * 
+	 * @param request
+	 * @param response
+	 * @param menu
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/registerMenu.do",  method = RequestMethod.GET)
+	public ModelAndView registerMenu(HttpServletRequest request, HttpServletResponse response,
+	  		  @ModelAttribute("menu") Menu menu) throws Exception{
+		
+		// 로그인 정보 확인
+		Member loginMember = new Member();
+		loginMember = hasAdminAuthority(request);
+		
+    	// 로그인 정보로 관리권한 확인
+    	ModelAndView mv = new ModelAndView("../../index");
+    	if(loginMember.getIsAdmin()) {
+    		// 메뉴 등록화면
+    		mv = new ModelAndView("/admin/registerMenu");
+    		mv.addObject("loginMember", loginMember);
+    		
+	    	List<Menu> menuList = menuService.selecMenuList();
+	    	mv.addObject("menuList", menuList);
+    		
+    	}
+		return mv;
+	}
+	
+	@RequestMapping(value="/telephoneSurvey.do",  method = RequestMethod.GET)
+	public ModelAndView telephoneSurvey(HttpServletRequest request, HttpServletResponse response, @RequestParam HashMap<String, Object> map) throws Exception{
+		
+		// 로그인 정보 확인
+		Member loginMember = new Member();
+		loginMember = hasAdminAuthority(request);
+    	// 로그인 정보로 관리권한 확인
+    	ModelAndView mv = new ModelAndView("../../index");
+		
+    	if(loginMember.getIsAdmin()) {
+    		// 전화개척 목록
+    		mv = new ModelAndView("/admin/telephoneSurvey");
+    		mv.addObject("loginMember", loginMember);
+	    	
+	    	//session저장
+	    	request.getSession().setAttribute("id", loginMember.id.toString());
+    	
+	    	// 메뉴 목록
+	    	mv.addObject("menuList", loginController.getMenu());
+	    	
+	    	// 날짜 Set
+	    	String year = "";
+	    	String month = "";
+	    	HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
+			if(map.values() != null && map.size()>0){
+				year = map.get("year").toString();
+				month = map.get("month").toString();
+				hashMap = loginController.getToday(year,month);
+			}else {
+				hashMap = loginController.getToday();
+			}
+			// 선택 날짜 Set
+	    	mv.addObject("selectedDay", hashMap);
+
+			List<TelephoneSurvey> telephoneSurveyList = telephoneSurveyService.selectTelephoneSurveyList(hashMap);
+	    	mv.addObject("telephoneSurveyList", telephoneSurveyList);
+	    	mv.addObject("today", loginController.getToday());
+
+    		
+    	}
+		return mv;
+	}
+
 }

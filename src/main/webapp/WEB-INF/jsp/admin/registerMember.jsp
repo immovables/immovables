@@ -12,18 +12,16 @@
     	}
 
     	#content > #main_aside {
-    		width : 30%;
+    		width : 20%;
     		float : left;
     	}
     	
     	#content > #main_section {
-    		width : 67%;  margin:0 auto;
+    		width : 77%;  margin:0 auto;
     		float : left;
     	}
-
-    	
-    	
     </style>
+
     <script type="text/javascript">
     
         // 필수 입력정보인 아이디, 비밀번호가 입력되었는지 확인하는 함수
@@ -55,12 +53,14 @@
     
 </head>
 <body>
-<header><c:import url="./head.jsp" charEncoding="UTF-8" /></header>
-<div id="content">
-	<aside id="main_aside">	<c:import url="./side.jsp" charEncoding="UTF-8" /></aside>
-	<section id="main_section">
-    <!-- div 왼쪽, 오른쪽 바깥여백을 auto로 주면 중앙정렬된다.  -->
-    <div id="wrap">
+		<header>
+		<c:import url="../admin/head.jsp" charEncoding="UTF-8" /></header>
+		<div id="content">
+			<aside id="main_aside"> <c:import url="../admin/side.jsp"
+				charEncoding="UTF-8" /></aside>
+			<br />
+			<section id="main_section"> <%-- <c:out value="${sessionScope.id }" />  --%>
+			<div id="wrap">
         <br><br>
         <b><font size="6" color="gray">직원등록</font></b>
         <br><br><br>
