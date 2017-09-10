@@ -11,7 +11,11 @@ public class SearchList {
 	public	String	startDate;
 	
 	public	String	endDate;
-
+	
+	public	Integer	seq;
+	
+	public	Boolean	isAdmin;
+	
 	
 	public String getYear() {
 		return year;
@@ -51,6 +55,22 @@ public class SearchList {
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
+	}
+
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 }

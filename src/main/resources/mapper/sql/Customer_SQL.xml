@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Customer">
+	
+	<resultMap id="CustomerResult" type="immovables.domain.Customer">
+		<result property="seq" column="SEQ" />
+		<result property="contactNumber" column="CONTACT_NUMBER" />
+		<result property="callDatetime" column="CALL_DATETIME" />
+		<result property="meetingDatetime" column="MEETING_DATETIME" />
+		<result property="businessType" column="BUSINESS_TYPE" />
+		<result property="officeType" column="OFFICE_TYPE" />
+		<result property="minDeposit" column="MIN_DEPOSIT"/>
+		<result property="maxDeposit" column="MAX_DEPOSIT"/>
+		<result property="isUndecidedDeposit" column="IS_UNDECIDED_DEPOSIT" />
+		<result property="minRental" column="MIN_RENTAL"/>
+		<result property="maxRental" column="MAX_RENTAL"/>
+		<result property="isMaintenanceCost" column="IS_MAINTENANCE_COST" />
+		<result property="minArea" column="MIN_AREA"/>
+		<result property="maxArea" column="MAX_AREA"/>
+		<result property="isUndecidedArea" column="IS_UNDECIDED_AREA" />
+		<result property="zone" column="ZONE"/>
+		<result property="content" column="CONTENT"/>
+		<result property="moveMonth" column="MOVE_MONTH"/>
+		<result property="moveDay" column="MOVE_DAY"/>
+		<result property="isUndecidedMoveDate" column="IS_UNDECIDED_MOVE_DATE" />
+		<result property="state" column="STATE"/>
+		<result property="stateEtc" column="STATE_ETC"/>
+		<result property="isDelete" column="IS_DELETE"/>
+		<result property="managerId" column="MANAGER_ID"/>
+		<result property="createrId" column="CREATER_ID"/>
+		<result property="createdDate" column="CREATED_DATE"/>
+		<result property="updaterId" column="UPDATER_ID"/>
+		<result property="updatedDate" column="UPDATED_DATE"/>
+		
+		<association property="member" javaType="immovables.domain.Member">
+		    <id property="id" column="id"/>
+    		<result property="name" column="name"/>
+  		</association>
+		
+	</resultMap>
+
+
+	<select id="selectCustomerList" resultMap="CustomerResult">
+		<![CDATA[
+			SELECT T.SEQ
+				 , T.SURVEY_DATE
+				 , M.NAME
+				 , T.RANGE
+				 , T.STATE
+			  FROM CUSTOMER AS T 
+			  LEFT JOIN MEMBER AS M ON T.MEMBER_ID = M.ID
+			  WHERE T.SURVEY_DATE >= (#{startDate}) AND T.SURVEY_DATE <= (#{endDate})
+			 GROUP BY T.SURVEY_DATE, M.ID
+			 ORDER BY T.SURVEY_DATE, M.SORT
+		]]>
+	</select>
+
+	<select id="selectCustomerListByUserId" resultMap="CustomerResult">
+		<![CDATA[
+			SELECT C.SEQ
+				 , C.CONTACT_NUMBER
+				 , C.BUSINESS_TYPE
+				 , C.MIN_DEPOSIT
+				 , C.MAX_DEPOSIT
+				 , C.MIN_RENTAL
+				 , C.MAX_RENTAL
+				 , C.MIN_AREA
+				 , C.MAX_AREA
+				 , C.ZONE
+				 , C.CONTENT
+				 , C.MOVE_MONTH
+				 , C.MOVE_DAY
+				 , C.STATE
+				 , C.STATE_ETC
+				 , C.IS_DELETE
+				 , C.CREATER_ID
+				 , C.CREATED_DATE				 
+				 , M.NAME
+			  FROM CUSTOMER AS C
+			  LEFT JOIN MEMBER AS M ON C.MANAGER_ID = M.ID
+			 WHERE MANAGER_ID = #{userId}
+
+		]]>
+	</select>
+	
+	<select id="selectCustomerByContactNumber" resultMap="CustomerResult">
+		<![CDATA[
+			SELECT SEQ
+				 , CONTACT_NUMBER
+				 , BUSINESS_TYPE
+				 , MIN_DEPOSIT
+				 , MAX_DEPOSIT
+				 , MIN_RENTAL
+				 , MAX_RENTAL
+				 , MIN_AREA
+				 , MAX_AREA
+				 , ZONE
+				 , CONTENT
+				 , MOVE_MONTH
+				 , MOVE_DAY
+				 , STATE
+				 , STATE_ETC
+				 , IS_DELETE
+				 , CREATER_ID
+				 , CREATED_DATE				 
+			  FROM CUSTOMER
+			 WHERE CONTACT_NUMBER = #{contactNumber}
+			 LIMIT 1;
+		]]>
+	</select>
+
+	<select id="selectCustomer" resultMap="CustomerResult">
+		<![CDATA[
+			SELECT SEQ
+				 , CONTACT_NUMBER
+				 , BUSINESS_TYPE
+				 , MIN_DEPOSIT
+				 , MAX_DEPOSIT
+				 , MIN_RENTAL
+				 , MAX_RENTAL
+				 , MIN_AREA
+				 , MAX_AREA
+				 , ZONE
+				 , CONTENT
+				 , MOVE_MONTH
+				 , MOVE_DAY
+				 , STATE
+				 , STATE_ETC
+				 , IS_DELETE
+				 , CREATER_ID
+				 , CREATED_DATE				 
+			  FROM CUSTOMER
+			 WHERE SEQ = #{seq}
+			 ]]><if test="isAdmin != true">
+			 <![CDATA[
+			    AND MANAGER_ID = #{userId}
+			 ]]>
+  			 </if><![CDATA[
+			 LIMIT 1;
+		]]>
+	</select>
+	
+	
+	
+	
+	<insert id="insertCustomer">
+		<![CDATA[
+			INSERT INTO CUSTOMER (
+						CONTACT_NUMBER
+					  , CALL_DATETIME
+					  , MEETING_DATETIME
+					  , BUSINESS_TYPE
+					  , OFFICE_TYPE
+					  , MIN_DEPOSIT
+					  , MAX_DEPOSIT
+					  , IS_UNDECIDED_DEPOSIT
+					  , MIN_RENTAL
+					  , MAX_RENTAL
+					  , IS_MAINTENANCE_COST
+					  , MIN_AREA
+					  , MAX_AREA
+					  , IS_UNDECIDED_AREA
+					  , ZONE
+					  , CONTENT
+					  , MOVE_MONTH
+					  , MOVE_DAY
+					  , IS_UNDECIDED_MOVE_DATE
+					  , STATE
+					  , STATE_ETC
+					  , IS_DELETE
+					  , MANAGER_ID
+					  , CREATER_ID
+					  , CREATED_DATE
+					  )VALUES(
+					  	#{contactNumber}
+					  , #{callDatetime}
+					  , #{meetingDatetime}
+					  , #{businessType}
+					  , #{officeType}
+					  , #{minDeposit}
+					  , #{maxDeposit}
+					  , #{isUndecidedDeposit}
+					  , #{minRental}
+					  , #{maxRental}
+					  , #{isMaintenanceCost}
+					  , #{minArea}
+					  , #{maxArea}
+					  , #{isUndecidedArea}
+					  , #{zone}
+					  , #{content}
+					  , #{moveMonth}
+					  , #{moveDay}
+					  , #{isUndecidedMoveDate}
+					  , #{state}
+					  , #{stateEtc}
+					  , 0
+					  , #{createrId}
+					  , #{createrId}
+					  , NOW()
+					  )
+			
+		]]>
+	</insert>
+	
+</mapper>
+

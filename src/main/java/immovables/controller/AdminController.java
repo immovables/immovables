@@ -124,6 +124,7 @@ public class AdminController {
 
 		Member result = new Member();
 		result.setIsAdmin(false);
+		result.setIsDelete(true);
 		if(sessionId!=null && sessionId !="guest") {
 			result = memberService.selectMemberById(sessionId);
 		}
@@ -170,7 +171,7 @@ public class AdminController {
     	// 로그인 정보로 관리권한 확인
     	ModelAndView mv = new ModelAndView("../../index");
 		
-    	if(loginMember.getIsAdmin()) {
+    	if(!loginMember.getIsDelete()) {
     		// 전화개척 목록
     		mv = new ModelAndView("/admin/telephoneSurvey");
     		mv.addObject("loginMember", loginMember);

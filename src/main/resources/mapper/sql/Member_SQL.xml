@@ -9,6 +9,7 @@
 		<result property="pw" column="PW"/>
 		<result property="name" column="NAME"/>
 		<result property="isAdmin" column="IS_ADMIN"/>
+		<result property="isDelete" column="IS_DELETE"/>
 	</resultMap>
 
 	<select id="selectMemberList" resultMap="memberResult">
@@ -38,6 +39,7 @@
 			SELECT	ID			
 				 ,	NAME		
 				 ,	IS_ADMIN
+				 ,	IS_DELETE
 			  FROM	MEMBER
 			 WHERE	ID = #{id}
 		]]>

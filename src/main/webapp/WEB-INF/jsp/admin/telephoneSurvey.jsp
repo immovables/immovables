@@ -59,7 +59,7 @@ $(document).ready(function(){
 						</c:forEach>
 					</select> 
 					<input type="submit" class="button" id="seachButton" value="조회" />​
-					<input type="submit" class="register-button" id="seachButton" value="등록" />​
+					<input type="button" class="register-button" id="seachButton" value="등록" />​
 				</div>
 				<br/>
 				<table width="100%" class='Schedule-table'>
