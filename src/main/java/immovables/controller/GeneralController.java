@@ -36,7 +36,6 @@ public class GeneralController {
 	@Autowired	private CustomerService customerService;
 	
 
-
 	@RequestMapping(value="/searchSchedule.do",  method = RequestMethod.GET)
     public ModelAndView searchSchedule(HttpServletRequest request, @RequestParam HashMap<String, Object> map) throws Exception{
 
@@ -70,7 +69,10 @@ public class GeneralController {
 			
 	    	// 메뉴 목록
 	    	mv.addObject("menuList", loginController.getMenu());
-	    	
+
+	    	// 회원정보
+	    	mv.addObject("member", loginMember);
+
 	    	// 전화개척
 	    	SearchList searchList = new SearchList();
 	
@@ -142,7 +144,9 @@ public class GeneralController {
 					
 	    	// 메뉴 목록
 	    	mv.addObject("menuList", loginController.getMenu());
-	
+	    	
+	    	// 회원정보
+	    	mv.addObject("member", loginMember);	
 
 	    	// 조회목록
 	    	SearchList searchList = new SearchList();
@@ -185,6 +189,9 @@ public class GeneralController {
 
 	    	// 메뉴 목록
 	    	mv.addObject("menuList", loginController.getMenu());
+	    	
+	    	// 회원정보
+	    	mv.addObject("member", loginMember);
     	}
 		return mv;
 	}
@@ -208,6 +215,9 @@ public class GeneralController {
 
 	    	// 메뉴 목록
 	    	mv.addObject("menuList", loginController.getMenu());
+	    	
+	    	// 회원정보
+	    	mv.addObject("member", loginMember);
     	}
 		return mv;
 	}
@@ -230,6 +240,9 @@ public class GeneralController {
 
 	    	// 메뉴 목록
 	    	mv.addObject("menuList", loginController.getMenu());
+	    	
+	    	// 회원정보
+	    	mv.addObject("member", loginMember);
 	    	
 	    	SearchList searchList = new SearchList();
 	    	searchList.setSeq(seq);
@@ -266,5 +279,85 @@ public class GeneralController {
 		
 		return resultMap;
 	}
+	
+	@RequestMapping(value="/telephoneSurvey.do",  method = RequestMethod.GET)
+	public ModelAndView telephoneSurvey(HttpServletRequest request, HttpServletResponse response, @RequestParam HashMap<String, Object> map) throws Exception{
+		
+		// 로그인 정보 확인
+		Member loginMember = new Member();
+		loginMember = adminController.hasAdminAuthority(request);
+    	// 로그인 정보로 관리권한 확인
+    	ModelAndView mv = new ModelAndView("../../index");
+		
+    	if(!loginMember.getIsDelete()) {
+    		// 전화개척 목록
+    		mv = new ModelAndView("/general/telephoneSurvey");
+    		mv.addObject("loginMember", loginMember);
+	    	
+	    	//session저장
+	    	request.getSession().setAttribute("id", loginMember.id.toString());
+    	
+	    	// 메뉴 목록
+	    	mv.addObject("menuList", loginController.getMenu());
+	    	
+	    	// 회원정보
+	    	mv.addObject("member", loginMember);
+	    	
+	    	// 날짜 Set
+	    	String year = "";
+	    	String month = "";
+	    	HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
+			if(map.values() != null && map.size()>0){
+				year = map.get("year").toString();
+				month = map.get("month").toString();
+				hashMap = loginController.getToday(year,month);
+			}else {
+				hashMap = loginController.getToday();
+			}
+			// 선택 날짜 Set
+	    	mv.addObject("selectedDay", hashMap);
+
+			List<TelephoneSurvey> telephoneSurveyList = telephoneSurveyService.selectTelephoneSurveyList(hashMap);
+	    	mv.addObject("telephoneSurveyList", telephoneSurveyList);
+	    	mv.addObject("today", loginController.getToday());
+
+    		
+    	}
+		return mv;
+	}
+	
+	@RequestMapping(value="/building.do",  method = RequestMethod.GET)
+    public ModelAndView building(HttpServletRequest request, @RequestParam HashMap<String, Object> map) throws Exception{
+
+		ModelAndView mv = new ModelAndView("/login");
+
+		// 로그인 정보로 관리권한 확인
+		Member loginMember = new Member();
+		loginMember = adminController.hasAdminAuthority(request);
+
+    	// 로그인 정보 확인
+    	if(loginMember != null && loginMember.getId() != null) {
+	    	mv = new ModelAndView("/general/building");
+
+	    	// 메뉴 목록
+	    	mv.addObject("menuList", loginController.getMenu());
+	    	
+	    	// 회원정보
+	    	mv.addObject("member", loginMember);	
+
+	    	// 조회목록
+	    	SearchList searchList = new SearchList();
+	
+	    	mv.addObject("buildingList", "");
+	
+	    	
+	    	//session저장
+			String userId = loginMember.getId();
+	    	request.getSession().setAttribute("id", userId);
+
+    	}
+
+    	return mv;
+    }
 		
 }

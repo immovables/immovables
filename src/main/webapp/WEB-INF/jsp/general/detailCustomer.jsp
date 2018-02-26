@@ -112,8 +112,8 @@ $(document).ready(function() {
 				<tr style="height:50px">
 	                   <th style="text-align:center; background-color:#CEECF5;" class="line">입주시기</th>
 	                   <td colspan="3" class="line">
-	                       <c:out value="${customer.moveMonth}" ></c:out>             
-	                       <c:out value="${customer.moveDay}" ></c:out>             
+	                       <c:out value="${customer.moveMonth}" />             
+	                       <c:out value="${customer.moveDay}" />             
 	                   </td>
 	                   <th style="text-align:center; background-color:#CEECF5;" class="line">상태</th>
 	                   <td colspan="5" class="line">

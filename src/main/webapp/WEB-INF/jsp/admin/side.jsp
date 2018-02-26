@@ -6,9 +6,24 @@
 
 </head>
 <body>
-	<br>
-	<b><font size="6" color="gray">회원 정보</font></b>
-	
+	<br><br>
+	<table align="center">
+		<tr>
+			<td>
+				<c:set var="img" value="${member.img }" />
+				<c:choose>
+					<c:when test="${empty img }"><img src="../images/default_img2.jpg" width="150px"></c:when>
+					<c:otherwise><img src="../images/${img}" width="150px"></c:otherwise>
+				</c:choose>
+			</td>
+		</tr>
+		<tr>
+			<td>ID : <c:out value="${member.id}" /></td>
+		</tr>
+		<tr>
+			<td>이름 : <c:out value="${member.name}" /></td>
+		</tr>
+	</table>
 
 
 

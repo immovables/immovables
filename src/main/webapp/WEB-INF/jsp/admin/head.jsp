@@ -24,7 +24,7 @@
 	<body>
 	<form>
 			<div id="content"><br />
-				<div id="news">(주)오피스 코리아 업무 노트</div>
+				<div id="news">immovables 개인 홈페이지</div>
 				<div id="menu">
 							<c:forEach var="menu" items="${menuList}">
 								<a href='${menu.url}'>${menu.name}</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;

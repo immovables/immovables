@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="../../css/style.css" />
 
-<title>스케줄 목록</title>
+<title>고객 목록</title>
 <style type="text/css">
 
 </style>

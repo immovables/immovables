@@ -8,6 +8,7 @@
 		<result property="id" column="ID" />
 		<result property="pw" column="PW"/>
 		<result property="name" column="NAME"/>
+		<result property="img" column="IMG"/>
 		<result property="isAdmin" column="IS_ADMIN"/>
 		<result property="isDelete" column="IS_DELETE"/>
 	</resultMap>
@@ -17,7 +18,9 @@
 			SELECT	ID			
 				 ,	PW			
 				 ,	NAME		
+				 ,	IMG		
 				 ,	IS_ADMIN
+				 ,	IS_DELETE
 			  FROM	MEMBER
 		]]>
 	</select>
@@ -27,7 +30,9 @@
 			SELECT	ID			
 				 ,	PW			
 				 ,	NAME		
+				 ,	IMG		
 				 ,	IS_ADMIN
+				 ,	IS_DELETE
 			  FROM	MEMBER
 			 WHERE	ID = #{id}
 			   AND	PW = #{pw}
@@ -38,6 +43,7 @@
 		<![CDATA[
 			SELECT	ID			
 				 ,	NAME		
+				 ,	IMG		
 				 ,	IS_ADMIN
 				 ,	IS_DELETE
 			  FROM	MEMBER
